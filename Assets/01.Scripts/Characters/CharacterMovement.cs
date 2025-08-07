@@ -16,12 +16,12 @@ namespace LittleLegends.Characters
 
         public ComponentContainer ComponentContainer { get; set; }
 
-        public void OnInitialize(ComponentContainer componentContainer)
+        public virtual void OnInitialize(ComponentContainer componentContainer)
         {
             characterAnimator = this.Get<CharacterAnimator>();
         }
 
-        public void AfterInit()
+        public virtual void AfterInit()
         {
         }
 

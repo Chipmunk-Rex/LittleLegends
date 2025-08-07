@@ -9,7 +9,6 @@ namespace LittleLegends.Characters.States
     {
         [field: SerializeField] public string StateName { get; private set; }
         protected CharacterStateMachine StateMachine { get; private set; }
-
         public object Clone()
         {
             return Instantiate(this);
@@ -34,6 +33,14 @@ namespace LittleLegends.Characters.States
         }
 
         public virtual void Exit()
+        {
+        }
+
+        public virtual void OnAnimationTrigger()
+        {
+        }
+
+        public virtual void OnAnimationEnd()
         {
         }
     }

@@ -7,7 +7,7 @@ namespace LittleLegends.Combat
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private float projectileSpeed = 10f;
 
-        public override void ExecuteAttack(Transform attacker, Vector3 targetPosition)
+        public override void Attack(Vector3 direction)
         {
             if (projectilePrefab == null)
             {
@@ -15,12 +15,15 @@ namespace LittleLegends.Combat
                 return;
             }
 
-            GameObject projectile = Instantiate(projectilePrefab, attacker.position, Quaternion.identity);
+            // Instantiate the projectile at the attacker's position and rotation
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+            // Get the Rigidbody component of the projectile
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                Vector3 direction = (targetPosition - attacker.position).normalized;
-                rb.velocity = direction * projectileSpeed;
+                // Set the velocity of the projectile in the specified direction
+                rb.linearVelocity = direction.normalized * projectileSpeed;
             }
             else
             {

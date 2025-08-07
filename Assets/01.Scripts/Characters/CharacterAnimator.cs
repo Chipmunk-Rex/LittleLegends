@@ -10,14 +10,15 @@ namespace LittleLegends.Characters
         int _moveXHash = Animator.StringToHash("MoveX");
         int _moveYHash = Animator.StringToHash("MoveY");
 
-        [Header("References")] [SerializeField]
-        private Animator _animator;
+        [Header("References")]
+        [field: SerializeField]
+        public Animator Animator { get; private set; }
 
         [SerializeField] private StatSO _moveSpeedStat;
 
         [Header("Settings")] [SerializeField] private float _lerpSpeed = 1f;
         Vector2 _animationDirection;
-        Vector2 _moveDirection;
+        Vector2 _currentDirection;
         public ComponentContainer ComponentContainer { get; set; }
 
         public void OnInitialize(ComponentContainer componentContainer)
@@ -26,31 +27,30 @@ namespace LittleLegends.Characters
 
         public void AfterInit()
         {
+            // 파라미터 이름 못정해서 그냥 string으로 바꿈
             _moveSpeedStat = this.Get<StatBehavior>().GetStat(_moveSpeedStat);
-            _animator.SetFloat("MoveSpeed", _moveSpeedStat.Value);
+            Animator.SetFloat("MoveSpeed", _moveSpeedStat.Value);
             _moveSpeedStat.OnValueChange += OnMoveSpeedChange;
         }
 
         private void OnMoveSpeedChange(StatSO stat, float current, float previous)
         {
-            _animator.SetFloat("MoveSpeed", current);
+            Animator.SetFloat("MoveSpeed", current);
         }
 
         public void SetDirection(Vector3 direction)
         {
+            // 나중에 수정해야함
             Vector3 localDirection = Quaternion.LookRotation(transform.forward) * direction;
-            _moveDirection = new Vector2(localDirection.x, localDirection.z).normalized;
-            _animator.SetFloat("MoveSpeedNormal", direction == Vector3.zero ? 0 : 1);
-
-            // _animator.SetFloat(_moveXHash, direction.x);
-            // _animator.SetFloat(_moveYHash, direction.z);
+            _currentDirection = new Vector2(localDirection.x, localDirection.z).normalized;
+            Animator.SetFloat("MoveSpeedNormal", direction == Vector3.zero ? 0 : 1);
         }
 
         private void Update()
         {
-            _animationDirection = Vector2.Lerp(_animationDirection, _moveDirection, Time.deltaTime / _lerpSpeed);
-            _animator.SetFloat(_moveXHash, _animationDirection.x);
-            _animator.SetFloat(_moveYHash, _animationDirection.y);
+            _animationDirection = Vector2.Lerp(_animationDirection, _currentDirection, Time.deltaTime / _lerpSpeed);
+            Animator.SetFloat(_moveXHash, _animationDirection.x);
+            Animator.SetFloat(_moveYHash, _animationDirection.y);
         }
     }
 }

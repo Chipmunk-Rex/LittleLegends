@@ -7,9 +7,16 @@ namespace LittleLegends.Players.States
     public class PlayerIdleState : CharacterIdleState
     {
         [SerializeField] private PlayerInputSO _playerInputs;
+
         public override void Enter()
         {
             base.Enter();
+            _playerInputs.OnAttackEvent.AddListener(OnAttackHandler);
+        }
+
+        private void OnAttackHandler()
+        {
+            StateMachine.ChangeState("ATTACK");
         }
 
         public override void Update()
@@ -24,6 +31,7 @@ namespace LittleLegends.Players.States
         public override void Exit()
         {
             base.Exit();
+            _playerInputs.OnAttackEvent.RemoveListener(OnAttackHandler);
         }
     }
 }

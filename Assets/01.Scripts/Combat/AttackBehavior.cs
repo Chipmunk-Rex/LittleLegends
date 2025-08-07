@@ -20,7 +20,7 @@ namespace LittleLegends.Combat
             damageStat = this.Get<StatBehavior>().GetStat(damageStat);
         }
 
-        public void Attack(Vector3 position)
+        public virtual void Attack(Vector3 direction)
         {
             
         }

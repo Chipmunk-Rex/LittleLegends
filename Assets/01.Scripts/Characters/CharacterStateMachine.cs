@@ -26,11 +26,16 @@ namespace LittleLegends.Characters
                     states[state.StateName].Initailize(this);
                 }
             }
+
             if (states.Count > 0)
             {
                 CurrentState = states[OriginalStates[0].StateName];
                 CurrentState.Enter();
             }
+
+            CharacterAnimationTrigger animationTrigger = this.Get<CharacterAnimationTrigger>();
+            animationTrigger.OnAnimationEventTrigger += OnAnimationTrigger;
+            animationTrigger.OnAnimationEndTrigger += OnAnimationEnd;
         }
 
         public void AfterInit()
@@ -62,6 +67,16 @@ namespace LittleLegends.Characters
         public void Update()
         {
             CurrentState?.Update();
+        }
+
+        private void OnAnimationTrigger()
+        {
+            CurrentState?.OnAnimationTrigger();
+        }
+
+        private void OnAnimationEnd()
+        {
+            CurrentState?.OnAnimationEnd();
         }
     }
 }
