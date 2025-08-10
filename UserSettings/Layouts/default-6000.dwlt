@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 77
+  controlID: 41
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -288,7 +288,7 @@ MonoBehaviour:
   - {fileID: 25}
   - {fileID: 26}
   m_Selected: 1
-  m_LastSelected: 3
+  m_LastSelected: 0
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1033,9 +1033,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -2.0873652, y: -0.10392094, z: -0.6514418}
+    m_Target: {x: 0, y: 0.5, z: 0}
     speed: 2
-    m_Value: {x: -2.0873652, y: -0.10392094, z: -0.6514418}
+    m_Value: {x: 0, y: 0.5, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1085,9 +1085,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.2759834, y: 0.2804553, z: -0.08455233, w: -0.91544557}
   m_Size:
-    m_Target: 2.7904541
+    m_Target: 0.65574384
     speed: 2
-    m_Value: 2.7904541
+    m_Value: 0.65574384
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2309,7 +2309,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 12f8ffff70b90000
+      m_ExpandedIDs: 20fbffffeeb10000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2430,7 +2430,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Graphics/SEMA Game Studio/Modular Cute Fantasy Character Pack #1/Animation
+    - Assets/08.ScriptableObjects/Stat
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2440,16 +2440,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Graphics/SEMA Game Studio/Modular Cute Fantasy Character Pack #1/Animation
+  - Assets/08.ScriptableObjects/Stat
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\msi\Desktop\rex\Develope\Github\Unity\LittleLegends
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d4110100
-    m_LastClickedID: 70100
-    m_ExpandedIDs: 00000000dcbf0000
+    m_SelectedIDs: ac4b0100
+    m_LastClickedID: 84908
+    m_ExpandedIDs: 00000000e2bf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2478,7 +2478,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000dcbf0000
+    m_ExpandedIDs: 00000000e2bf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2504,10 +2504,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: f8a9ffff
-    m_LastClickedInstanceID: -22024
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c6230000166d00000e770000a6610000a461000000000000dc710000aa720000ee620000a061000070720000fc79000040810000d2830000b67d000020810000e87f0000c8110100
+    m_SelectedInstanceIDs: a8b10000
+    m_LastClickedInstanceID: 45480
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c6230000166d00000e770000a6610000a461000000000000dc710000aa720000ee620000a061000070720000fc79000040810000d2830000b67d000020810000e87f0000c81101001ec10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2649,14 +2649,14 @@ MonoBehaviour:
     - {fileID: 351132783464915903, guid: b88950792b4878346919c6f7ed063fb8, type: 2}
     - {fileID: 2517367349447467152, guid: b88950792b4878346919c6f7ed063fb8, type: 2}
     m_ValueSerializationHelper:
-    - e00: 1.153709
+    - e00: 0.69705456
       e01: 0
       e02: 0
-      e03: -219.20471
+      e03: -117.28919
       e10: 0
-      e11: 1.153709
+      e11: 0.69705456
       e12: 0
-      e13: -23.074158
+      e13: 230.05121
       e20: 0
       e21: 0
       e22: 1
@@ -2718,10 +2718,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Animation\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1430
-    y: 87
-    width: 481
-    height: 891
+    x: 1434
+    y: 79
+    width: 485
+    height: 907
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2735,7 +2735,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 46870
+  m_LastSelectedObjectID: 45550
 --- !u!114 &26
 MonoBehaviour:
   m_ObjectHideFlags: 52

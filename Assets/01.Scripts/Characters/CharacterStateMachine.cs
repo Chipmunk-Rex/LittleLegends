@@ -1,19 +1,26 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using LittleLegends.ConponentContainer;
 using LittleLegends.Characters.States;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Unity.Collections;
 
 namespace LittleLegends.Characters
 {
-    public class CharacterStateMachine : MonoBehaviour, IContainerComponent, IAfterInitailze
+    public class CharacterStateMachine : NetworkBehaviour, IContainerComponent, IAfterInitailze
     {
         [SerializeField] private CharacterStateSO[] OriginalStates;
         private CharacterStateSO CurrentState { get; set; }
 
         private Dictionary<string, CharacterStateSO> states = new();
         public ComponentContainer ComponentContainer { get; set; }
+
+        public NetworkVariable<FixedString32Bytes> CurrentStateName =
+            new NetworkVariable<FixedString32Bytes>(string.Empty,
+                NetworkVariableReadPermission.Everyone,
+                NetworkVariableWritePermission.Owner);
 
         public void OnInitialize(ComponentContainer componentContainer)
         {
@@ -49,11 +56,29 @@ namespace LittleLegends.Characters
             }
         }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            if (IsOwner == false)
+                CurrentStateName.OnValueChanged += OnNetworkStateChanged;
+        }
+
+        private void OnNetworkStateChanged(FixedString32Bytes oldValue, FixedString32Bytes newValue)
+        {
+            Debug.Log("OnNetworkStateChanged " + newValue.Value);
+            if (CurrentState != null && CurrentState.StateName == newValue.Value)
+                return;
+            ChangeState(newValue.Value);
+        }
+
         public void ChangeState(CharacterStateSO state)
         {
+            if (CurrentState == state) return;
             CurrentState?.Exit();
             CurrentState = states[state.StateName];
             CurrentState.Enter();
+            if (IsOwner)
+                CurrentStateName.Value = state.StateName;
         }
 
         public void ChangeState(string stateName)
@@ -63,6 +88,7 @@ namespace LittleLegends.Characters
                 ChangeState(newState);
             }
         }
+
 
         public void Update()
         {

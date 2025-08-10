@@ -1,15 +1,17 @@
 using LittleLegends.Players;
 using LittleLegends.ConponentContainer;
 using LittleLegends.StatSystem;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace LittleLegends.Characters
 {
-    public class CharacterMovement : MonoBehaviour, IContainerComponent, IAfterInitailze
+    public class CharacterMovement : NetworkBehaviour, IContainerComponent, IAfterInitailze
     {
-        [Header("References")]
-        [SerializeField] CharacterController characterController;
+        [Header("References")] [SerializeField]
+        protected CharacterController characterController;
 
         [SerializeField] private StatSO moveStat;
         CharacterAnimator characterAnimator;
@@ -33,7 +35,6 @@ namespace LittleLegends.Characters
 
         public void Stop()
         {
-            characterAnimator.SetDirection(Vector3.zero); 
             characterAnimator.SetDirection(Vector3.zero);
         }
     }

@@ -9,10 +9,13 @@ namespace LittleLegends.Combat
         [Header("References")] [SerializeField]
         private StatSO damageStat;
 
+        [SerializeField] Transform attackPoint;
         public ComponentContainer ComponentContainer { get; set; }
 
         public void OnInitialize(ComponentContainer componentContainer)
         {
+            if (attackPoint == null)
+                attackPoint = transform;
         }
 
         public void AfterInit()
@@ -22,7 +25,6 @@ namespace LittleLegends.Combat
 
         public virtual void Attack(Vector3 direction)
         {
-            
         }
     }
 }

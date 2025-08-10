@@ -1,4 +1,6 @@
+using LittleLegends.Characters;
 using LittleLegends.Characters.States;
+using LittleLegends.ConponentContainer;
 using UnityEngine;
 
 namespace LittleLegends.Players.States
@@ -7,10 +9,18 @@ namespace LittleLegends.Players.States
     public class PlayerIdleState : CharacterIdleState
     {
         [SerializeField] private PlayerInputSO _playerInputs;
+        [SerializeField] private PlayerMovement _playerMovement;
+
+        public override void Initailize(CharacterStateMachine characterStateMachine)
+        {
+            base.Initailize(characterStateMachine);
+            _playerMovement = characterStateMachine.Get<PlayerMovement>();
+        }
 
         public override void Enter()
         {
             base.Enter();
+            _playerMovement.EnableMovement();
             _playerInputs.OnAttackEvent.AddListener(OnAttackHandler);
         }
 
@@ -31,6 +41,7 @@ namespace LittleLegends.Players.States
         public override void Exit()
         {
             base.Exit();
+            _playerMovement.DisableMovement();
             _playerInputs.OnAttackEvent.RemoveListener(OnAttackHandler);
         }
     }

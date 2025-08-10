@@ -15,7 +15,7 @@ namespace LittleLegends.Players.States
         public override void Enter()
         {
             base.Enter();
-            AttackBehavior = StateMachine.Get<AttackBehavior>();
+            AttackBehavior = StateMachine.Get<AttackBehavior>(true);
             _characterMovement = StateMachine.Get<PlayerMovement>();
             _characterMovement.EnableMovement();
         }
