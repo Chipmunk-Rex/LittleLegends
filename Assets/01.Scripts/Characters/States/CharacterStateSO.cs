@@ -9,6 +9,8 @@ namespace LittleLegends.Characters.States
     {
         [field: SerializeField] public string StateName { get; private set; }
         protected CharacterStateMachine StateMachine { get; private set; }
+        protected bool IsOwner => StateMachine.IsOwner;
+        protected bool IsServer => StateMachine.IsServer;
         public object Clone()
         {
             return Instantiate(this);

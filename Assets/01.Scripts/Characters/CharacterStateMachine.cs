@@ -34,12 +34,6 @@ namespace LittleLegends.Characters
                 }
             }
 
-            if (states.Count > 0)
-            {
-                CurrentState = states[OriginalStates[0].StateName];
-                CurrentState.Enter();
-            }
-
             CharacterAnimationTrigger animationTrigger = this.Get<CharacterAnimationTrigger>();
             animationTrigger.OnAnimationEventTrigger += OnAnimationTrigger;
             animationTrigger.OnAnimationEndTrigger += OnAnimationEnd;
@@ -59,12 +53,24 @@ namespace LittleLegends.Characters
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            if (IsOwner == false)
+            if (IsOwner)
+            {
+                if (states.Count > 0)
+                {
+                    CurrentState = states[OriginalStates[0].StateName];
+                    CurrentState.Enter();
+                }
+                CurrentStateName.Value = CurrentState?.StateName;
+            }
+            else
+            {
                 CurrentStateName.OnValueChanged += OnNetworkStateChanged;
+            }
         }
 
         private void OnNetworkStateChanged(FixedString32Bytes oldValue, FixedString32Bytes newValue)
         {
+            if (IsOwner) return;
             Debug.Log("OnNetworkStateChanged " + newValue.Value);
             if (CurrentState != null && CurrentState.StateName == newValue.Value)
                 return;
@@ -77,7 +83,7 @@ namespace LittleLegends.Characters
             CurrentState?.Exit();
             CurrentState = states[state.StateName];
             CurrentState.Enter();
-            if (IsOwner)
+            if (IsOwner && CurrentStateName.Value != state.StateName)
                 CurrentStateName.Value = state.StateName;
         }
 

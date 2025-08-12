@@ -1,3 +1,4 @@
+using TankCode.Projectiles;
 using UnityEngine;
 
 namespace LittleLegends.Combat
@@ -6,29 +7,23 @@ namespace LittleLegends.Combat
     {
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private float projectileSpeed = 10f;
+        [SerializeField] ProjectileBase clientProjectilePrefab;
+        [SerializeField] ProjectileBase serverProjectilePrefab;
 
-        public override void Attack(Vector3 direction)
+        protected override void OnServerAttack(Vector3 direction)
         {
-            if (projectilePrefab == null)
-            {
-                Debug.LogError("Projectile prefab is not assigned.");
-                return;
-            }
+            base.OnServerAttack(direction);
+            ProjectileBase serverProjectile = Instantiate(serverProjectilePrefab);
+            serverProjectile.transform.position = transform.position;
+            serverProjectile.FireProjectile(direction);
+        }
 
-            // Instantiate the projectile at the attacker's position and rotation
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-
-            // Get the Rigidbody component of the projectile
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                // Set the velocity of the projectile in the specified direction
-                rb.linearVelocity = direction.normalized * projectileSpeed;
-            }
-            else
-            {
-                Debug.LogError("Projectile prefab does not have a Rigidbody component.");
-            }
+        protected override void OnClientAttack(Vector3 direction)
+        {
+            base.OnClientAttack(direction);
+            ProjectileBase projectile = Instantiate(clientProjectilePrefab);
+            projectile.transform.position = transform.position;
+            projectile.FireProjectile(direction);
         }
     }
 }

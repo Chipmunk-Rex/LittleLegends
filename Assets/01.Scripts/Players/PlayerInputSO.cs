@@ -9,14 +9,14 @@ namespace LittleLegends.Players
     public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
     {
         public Controls Controls { get; private set; }
-        public UnityEvent<Vector2> OnLookEvent = new UnityEvent<Vector2>();
-        public UnityEvent OnAttackEvent = new UnityEvent();
-        public UnityEvent OnInteractEvent = new UnityEvent();
-        public UnityEvent OnCrouchEvent = new UnityEvent();
-        public UnityEvent OnJumpEvent = new UnityEvent();
-        public UnityEvent OnPreviousEvent = new UnityEvent();
-        public UnityEvent OnNextEvent = new UnityEvent();
-        public UnityEvent OnSprintEvent = new UnityEvent();
+        public Action<Vector2> OnLookEvent;
+        public Action OnAttackEvent;
+        public Action OnInteractEvent;
+        public Action OnCrouchEvent;
+        public Action OnJumpEvent;
+        public Action OnPreviousEvent;
+        public Action OnNextEvent;
+        public Action OnSprintEvent;
 
         public Vector2 MousePosition { get; private set; }
 
@@ -56,43 +56,43 @@ namespace LittleLegends.Players
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnAttackEvent.Invoke();
+                OnAttackEvent?.Invoke();
         }
 
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnInteractEvent.Invoke();
+                OnInteractEvent?.Invoke();
         }
 
         public void OnCrouch(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnCrouchEvent.Invoke();
+                OnCrouchEvent?.Invoke();
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnJumpEvent.Invoke();
+                OnJumpEvent?.Invoke();
         }
 
         public void OnPrevious(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnPreviousEvent.Invoke();
+                OnPreviousEvent?.Invoke();
         }
 
         public void OnNext(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnNextEvent.Invoke();
+                OnNextEvent?.Invoke();
         }
 
         public void OnSprint(InputAction.CallbackContext context)
         {
             if (context.performed)
-                OnSprintEvent.Invoke();
+                OnSprintEvent?.Invoke();
         }
 
         public void OnMouse(InputAction.CallbackContext context)

@@ -1,4 +1,5 @@
 using LittleLegends.ConponentContainer;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace LittleLegends.Characters.States
@@ -22,6 +23,12 @@ namespace LittleLegends.Characters.States
         public override void OnAnimationEnd()
         {
             base.OnAnimationEnd();
+            CharacterAnimator.Animator.SetBool(_parameterHash, false);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
             CharacterAnimator.Animator.SetBool(_parameterHash, false);
         }
     }

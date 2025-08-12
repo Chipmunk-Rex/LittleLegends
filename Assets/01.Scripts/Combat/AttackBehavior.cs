@@ -1,10 +1,11 @@
 using LittleLegends.ConponentContainer;
 using LittleLegends.StatSystem;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace LittleLegends.Combat
 {
-    public class AttackBehavior : MonoBehaviour, IContainerComponent, IAfterInitailze
+    public class AttackBehavior : NetworkBehaviour, IContainerComponent, IAfterInitailze
     {
         [Header("References")] [SerializeField]
         private StatSO damageStat;
@@ -23,7 +24,31 @@ namespace LittleLegends.Combat
             damageStat = this.Get<StatBehavior>().GetStat(damageStat);
         }
 
-        public virtual void Attack(Vector3 direction)
+        public void Attack(Vector3 direction)
+        {
+            AttackServerRPC(direction);
+        }
+
+        [ServerRpc(RequireOwnership = true)]
+        private void AttackServerRPC(Vector3 direction)
+        {
+            OnServerAttack(direction);
+            AttackClientRPC(direction);
+        }
+
+        protected virtual void OnServerAttack(Vector3 direction)
+        {
+        }
+
+        [ClientRpc]
+        private void AttackClientRPC(Vector3 direction)
+        {
+            if (IsServer)
+                return;
+            OnClientAttack(direction);
+        }
+
+        protected virtual void OnClientAttack(Vector3 direction)
         {
         }
     }

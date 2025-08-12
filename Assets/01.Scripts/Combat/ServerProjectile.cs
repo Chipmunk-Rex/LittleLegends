@@ -5,16 +5,12 @@ namespace TankCode.Projectiles
 {
     public class ServerProjectile : ProjectileBase
     {
+        // [SerializeField] ClientProjectile
         [SerializeField] public int damage = 1;
 
-        protected override void OnTriggerEnter2D(Collider2D other)
+        public override void FireProjectile(Vector2 velocity)
         {
-            if (other.attachedRigidbody.TryGetComponent(out Health health))
-            {
-                health.TakeDamage(damage);
-            }
-
-            base.OnTriggerEnter2D(other);
+            base.FireProjectile(velocity);
         }
     }
 }

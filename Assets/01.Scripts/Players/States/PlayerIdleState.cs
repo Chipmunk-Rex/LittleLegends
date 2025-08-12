@@ -20,8 +20,11 @@ namespace LittleLegends.Players.States
         public override void Enter()
         {
             base.Enter();
-            _playerMovement.EnableMovement();
-            _playerInputs.OnAttackEvent.AddListener(OnAttackHandler);
+            if (IsOwner)
+            {
+                _playerMovement.EnableMovement();
+                _playerInputs.OnAttackEvent += OnAttackHandler;
+            }
         }
 
         private void OnAttackHandler()
@@ -32,6 +35,7 @@ namespace LittleLegends.Players.States
         public override void Update()
         {
             base.Update();
+            if (IsOwner == false) return;
             if (_playerInputs.MoveDirection != Vector2.zero)
             {
                 StateMachine.ChangeState("MOVE");
@@ -41,8 +45,11 @@ namespace LittleLegends.Players.States
         public override void Exit()
         {
             base.Exit();
-            _playerMovement.DisableMovement();
-            _playerInputs.OnAttackEvent.RemoveListener(OnAttackHandler);
+            if (IsOwner)
+            {
+                _playerMovement.DisableMovement();
+                _playerInputs.OnAttackEvent -= OnAttackHandler;
+            }
         }
     }
 }

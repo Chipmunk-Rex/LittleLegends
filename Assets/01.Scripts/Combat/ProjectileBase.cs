@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TankCode.Projectiles
@@ -5,9 +6,9 @@ namespace TankCode.Projectiles
     public class ProjectileBase : MonoBehaviour
     {
         [SerializeField] private float lifeTime = 2f;
-        [field: SerializeField] public Rigidbody2D RBCompo { get; private set; }
-        [field: SerializeField] public Collider2D ColliderCompo { get; private set; }
-        
+        [field: SerializeField] public Rigidbody RBCompo { get; private set; }
+        [field: SerializeField] public Collider ColliderCompo { get; private set; }
+
         private float _currentLifeTime;
 
         protected virtual void Update()
@@ -18,12 +19,12 @@ namespace TankCode.Projectiles
                 DestroyGameObject();
         }
 
-        public void FireProjectile(Vector2 velocity)
+        public virtual void FireProjectile(Vector2 velocity)
         {
             RBCompo.linearVelocity = velocity;
         }
-        
-        protected virtual void OnTriggerEnter2D(Collider2D other)
+
+        protected virtual void OnCollisionEnter(Collision other)
         {
             DestroyGameObject();
         }

@@ -1,3 +1,4 @@
+using LittleLegends.Characters;
 using LittleLegends.Characters.States;
 using LittleLegends.Combat;
 using LittleLegends.ConponentContainer;
@@ -12,24 +13,32 @@ namespace LittleLegends.Players.States
         private PlayerMovement _characterMovement;
         [SerializeField] private PlayerInputSO _playerInputs;
 
+        public override void Initailize(CharacterStateMachine characterStateMachine)
+        {
+            base.Initailize(characterStateMachine);
+            AttackBehavior = StateMachine.Get<AttackBehavior>(true);
+            _characterMovement = StateMachine.Get<PlayerMovement>();
+        }
+
         public override void Enter()
         {
             base.Enter();
-            AttackBehavior = StateMachine.Get<AttackBehavior>(true);
-            _characterMovement = StateMachine.Get<PlayerMovement>();
-            _characterMovement.EnableMovement();
+            if (IsOwner)
+                _characterMovement.EnableMovement();
         }
+
         public override void Exit()
         {
             base.Exit();
-            if (_characterMovement != null)
+            if (IsOwner)
                 _characterMovement.DisableMovement();
         }
 
         public override void OnAnimationTrigger()
         {
             base.OnAnimationTrigger();
-            AttackBehavior.Attack(AttackBehavior.transform.forward);
+            if (IsOwner)
+                AttackBehavior.Attack(AttackBehavior.transform.forward);
         }
 
         public override void OnAnimationEnd()

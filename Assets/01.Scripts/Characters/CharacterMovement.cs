@@ -5,6 +5,7 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Quaternion = System.Numerics.Quaternion;
 
 namespace LittleLegends.Characters
 {
@@ -29,7 +30,8 @@ namespace LittleLegends.Characters
 
         public void Move(Vector3 moveDirection)
         {
-            characterController.Move(moveDirection * (moveStat.Value * Time.deltaTime * 2));
+            Vector3 localDirection = transform.TransformDirection(moveDirection);
+            characterController.Move(localDirection * (moveStat.Value * Time.deltaTime * 2));
             characterAnimator.SetDirection(moveDirection);
         }
 

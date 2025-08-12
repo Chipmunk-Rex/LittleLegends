@@ -40,8 +40,9 @@ namespace LittleLegends.Characters
 
         public void SetDirection(Vector3 direction)
         {
-            // 나중에 수정해야함
-            Vector3 localDirection = Quaternion.LookRotation(transform.forward) * direction;
+            // 월드좌표계 -> 로컬 좌표계
+            // Vector3 localDirection = Quaternion.LookRotation(transform.forward) * direction;
+            Vector3 localDirection = direction;
             _currentDirection = new Vector2(localDirection.x, localDirection.z).normalized;
             Animator.SetFloat("MoveSpeedNormal", direction == Vector3.zero ? 0 : 1);
         }
